@@ -11,6 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IElevenLabsModel, ElevenLabsModelRepository>();
+builder.Services.AddSingleton<IElevenLabsVoice, ElevenLabsVoiceRepository>();
+
 
 var app = builder.Build();
 

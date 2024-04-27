@@ -1,6 +1,5 @@
 ﻿using Api.Interfaces;
 using BaseTypes;
-using Contracts.Request;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ThirdPartyTypes.ElevenLabs;
@@ -9,21 +8,21 @@ namespace WebApi.Controllers
 {
 	[Route("[controller]/[action]")]
 	[ApiController]
-	public class ModelsController : ControllerBase
+	public class VoiceController : ControllerBase
 	{
-		IElevenLabsModel _elevenLabsModelRepo;
-		public ModelsController(IElevenLabsModel elevenLabsModelRepo)
-		{
-			_elevenLabsModelRepo = elevenLabsModelRepo;
+        public IElevenLabsVoice _elevenLabsVoiceRepo;
+        public VoiceController(IElevenLabsVoice elevenLabsVoiceRepo)
+        {
+			_elevenLabsVoiceRepo = elevenLabsVoiceRepo;
 		}
 		[HttpGet]
-		public ResponseData<List<ElevenLabsModel>> GetModels(string apiKey)
+		public ResponseData<VoiceModel> GetVoices(string apiKey)
 		{
-			ResponseData<List<ElevenLabsModel>> response = new ResponseData<List<ElevenLabsModel>>();
+			ResponseData<VoiceModel> response = new ResponseData<VoiceModel>();
 			try
 			{
-				List<ElevenLabsModel> result = _elevenLabsModelRepo.GetModel(apiKey);
-				if (result!=null)
+				VoiceModel result = _elevenLabsVoiceRepo.GetVoices(apiKey);
+				if (result != null)
 				{
 					response.Success = true;
 					response.Data = result;

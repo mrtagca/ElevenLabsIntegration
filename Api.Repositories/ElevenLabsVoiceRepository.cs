@@ -1,7 +1,6 @@
 ﻿using Api.Interfaces;
-using BaseTypes;
 using BaseTypes.Enums;
-using Contracts.Request;
+using BaseTypes;
 using Newtonsoft.Json;
 using RequestHelper;
 using RestSharp;
@@ -9,20 +8,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ThirdPartyTypes.ElevenLabs;
 
 namespace Api.Repositories
 {
-	public class ElevenLabsModelRepository : IElevenLabsModel
+	public class ElevenLabsVoiceRepository : IElevenLabsVoice
 	{
-		public List<ElevenLabsModel> GetModel(string apiKey)
+		public VoiceModel GetVoices(string apiKey)
 		{
 			try
 			{
 				BaseRequestType baseRequestType = new BaseRequestType();
-				baseRequestType.Url = "https://api.elevenlabs.io/v1/models";
+				baseRequestType.Url = "https://api.elevenlabs.io/v1/voices";
 				baseRequestType.RequestMethod = BaseRequestMethod.GET;
 
 				Dictionary<string, string> headers = new Dictionary<string, string>();
@@ -30,10 +28,10 @@ namespace Api.Repositories
 				baseRequestType.RequestHeaders = headers;
 
 				RestResponse response = Requestor.Request(baseRequestType);
-				List<ElevenLabsModel> elevenLabsModel = JsonConvert.DeserializeObject<List<ElevenLabsModel>>(response.Content);
-				if (elevenLabsModel !=null)
+				VoiceModel elevenLabsVoice = JsonConvert.DeserializeObject<VoiceModel>(response.Content);
+				if (elevenLabsVoice != null)
 				{
-					return elevenLabsModel;
+					return elevenLabsVoice;
 				}
 				else
 				{
