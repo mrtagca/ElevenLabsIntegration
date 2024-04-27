@@ -14,7 +14,7 @@ namespace RequestHelper
 		{
 			try
 			{
-				if (baseRequestType == null)
+				if (baseRequestType != null)
 				{
 					var options = new RestClientOptions()
 					{
@@ -58,7 +58,9 @@ namespace RequestHelper
 						}
 					}
 
-					if (string.IsNullOrWhiteSpace(baseRequestType.JsonBody))
+					request.AddHeader("Content-Type", "application/json");
+
+					if (!string.IsNullOrWhiteSpace(baseRequestType.JsonBody))
 					{
 						request.AddStringBody(baseRequestType.JsonBody, DataFormat.Json);
 					}
